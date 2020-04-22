@@ -1,4 +1,4 @@
-const { age, date, grade} = require('./src/lib/utils')
+const { age, date, grade} = require('../lib/utils.js')
 const Intl = require("intl")
 
 module.exports = {
