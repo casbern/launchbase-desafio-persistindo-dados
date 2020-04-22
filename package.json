@@ -2,11 +2,11 @@
   "name": "desafio-aulas-particulares-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "npm-run-all -p nodemon browsersync",
-    "browsersync": "browser-sync start --proxy http://localhost:5000 --files 'public, views'",
-    "nodemon": "nodemon server.js"
+    "nodemon": "nodemon src/server.js",
+    "browsersync": "browser-sync start --proxy http://localhost:5000 --files 'public, src/app/views'"
   },
   "keywords": [],
   "author": "",

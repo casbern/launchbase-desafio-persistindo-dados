@@ -7,7 +7,6 @@ const methodOverride = require("method-override")
 const server = express()
 
 //* Usando Middleware
-//! A ordem é afetada
 server.use(express.urlencoded({ extended: true })) //* responsável por fazer funcionar o body
 
 //* Mostrando arquivos estaticos com CSS

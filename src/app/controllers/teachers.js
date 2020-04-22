@@ -20,6 +20,27 @@ module.exports = {
       }
     }
 
+    const query = `
+    INSERT INTO teachers (
+      avatar_url,
+      name,
+      birth_date,
+      education_level,
+      class_type,
+      subjects_taught,
+      created_at
+    ) VALUES  ($1, $2, $3, $4, $5, $6)
+    RETURNING id
+    `
+    const values = [
+      req.body.avatar_url,
+      req.body.name,
+      req.body.birth_date,
+      req.body.education_level,
+      req.body.class_type,
+      req.body.subjects_taught,
+    ]
+
 
   },
 
