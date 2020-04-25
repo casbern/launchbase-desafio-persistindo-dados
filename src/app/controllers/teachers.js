@@ -11,7 +11,7 @@ module.exports = {
   },
 
   post(req, res) {
-    const keys = Object.keys(req.body) //it will be an array of the keys of the object
+    const keys = Object.keys(req.body) //array com as keys do objeto
 
     //* Checando se todos os campos estão preenchidos
     for (key of keys) {
@@ -29,16 +29,17 @@ module.exports = {
       class_type,
       subjects_taught,
       created_at
-    ) VALUES  ($1, $2, $3, $4, $5, $6)
+    ) VALUES  ($1, $2, $3, $4, $5, $6, $7)
     RETURNING id
     `
     const values = [
       req.body.avatar_url,
       req.body.name,
-      req.body.birth_date,
+      date(req.body.birth_date).iso,
       req.body.education_level,
       req.body.class_type,
       req.body.subjects_taught,
+      date(Date.now()).iso
     ]
 
 
