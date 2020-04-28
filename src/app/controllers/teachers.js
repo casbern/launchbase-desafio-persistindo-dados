@@ -1,17 +1,28 @@
 const { age, date, grade} = require('../lib/utils')
-const db = require("../../config/db")
+const Teacher = require("../models/Teacher")
 const Intl = require("intl")
 
 module.exports = {
   index(req, res) {
-    return res.render("teachers/index")
+    Teacher.all((teachers) => {
+      return res.render("teachers/index", {teachers})
+    })
   },
 
   create(req, res) {
-    return res.render("teachers/create")
+    return res.render("teachers/create", {
+      options: {
+        high_school: "Ensino Médio Completo",
+        higher_education: "Ensino Superior Completo",
+        master_degree: "Mestrado",
+        doctorate_degree: "Doutorado"
+      }
+    })
   },
 
   post(req, res) {
+    console.log(req.body)
+
     const keys = Object.keys(req.body) //array com as keys do objeto
 
     //* Checando se todos os campos estão preenchidos
@@ -21,39 +32,9 @@ module.exports = {
       }
     }
 
-    const query = `
-    INSERT INTO teachers (
-      avatar_url,
-      name,
-      birth_date,
-      education_level,
-      class_type,
-      subjects_taught,
-      created_at
-    ) VALUES  ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING id
-    `
-    const values = [
-      req.body.avatar_url,
-      req.body.name,
-      console.log("req.body.birth_date"),
-      console.log(req.body.birth_date),
-      date(req.body.birth_date).iso,
-      req.body.education_level,
-      req.body.class_type,
-      req.body.subjects_taught,
-      date(Date.now()).iso,
-      console.log("req.body.date"),
-      console.log(Date.now()),
-    ]
-
-    db.query(query, values, (err,results) => {
-      console.log(err)
-      console.log(results)
-      return
+    Teacher.create( req.body, (teacher) => {
+      return res.redirect(`/teachers/${teacher.id}`)
     })
-
-
   },
 
   edit(req, res) {
@@ -61,7 +42,15 @@ module.exports = {
   },
 
   show(req, res) {
-    return
+    Teacher.find(req.params.id, (teacher) => {
+      if(!teacher) return res.send("Teacher was not found!")
+
+      teacher.age = age(teacher.birth)
+      teacher.services = teacher.services.split(",")
+      teacher.created_at = date(teacher.created_at).format
+
+      return res.render("teachers/show", {teacher})
+    })
   },
 
   put(req, res) {
