@@ -19,7 +19,7 @@ server.use(routes)
 //* Configurando Nunjucks
 server.set("view engine", "njk")
 
-nunjucks.configure("src/app/views", {
+nunjucks.configure("app/views", {
   express: server,
   autoescape: false, //* mostrar o HTML sem as tags
   noCache: true

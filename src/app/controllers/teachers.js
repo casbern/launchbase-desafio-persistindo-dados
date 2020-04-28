@@ -1,13 +1,14 @@
 const { age, date, grade} = require('../lib/utils')
+const db = require("../../config/db")
 const Intl = require("intl")
 
 module.exports = {
   index(req, res) {
-    return res.render("students/index")
+    return res.render("teachers/index")
   },
 
   create(req, res) {
-    return res.render("students/create")
+    return res.render("teachers/create")
   },
 
   post(req, res) {
@@ -41,6 +42,12 @@ module.exports = {
       req.body.subjects_taught,
       date(Date.now()).iso
     ]
+
+    db.query(query, values, (err,results) => {
+      console.log(err)
+      console.log(results)
+      return
+    })
 
 
   },
