@@ -36,11 +36,15 @@ module.exports = {
     const values = [
       req.body.avatar_url,
       req.body.name,
+      console.log("req.body.birth_date"),
+      console.log(req.body.birth_date),
       date(req.body.birth_date).iso,
       req.body.education_level,
       req.body.class_type,
       req.body.subjects_taught,
-      date(Date.now()).iso
+      date(Date.now()).iso,
+      console.log("req.body.date"),
+      console.log(Date.now()),
     ]
 
     db.query(query, values, (err,results) => {
