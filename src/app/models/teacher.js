@@ -50,5 +50,17 @@ module.exports = {
       callback(results.rows[0])
 
     }) 
+  },
+
+  update(data, callback) {
+    const query = `
+    UPDATE teachers SET
+    avatar_url=($1),
+    name=($2),
+    birth=($3),
+    scholarity=($4),
+    class_type=($5),
+    services=($6),
+    `
   }
 }
