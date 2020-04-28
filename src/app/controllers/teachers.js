@@ -1,5 +1,5 @@
 const { age, date, grade} = require('../lib/utils')
-const Teacher = require("../models/Teacher")
+const Teacher = require("../models/teacher")
 const Intl = require("intl")
 
 module.exports = {
