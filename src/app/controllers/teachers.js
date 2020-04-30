@@ -44,7 +44,15 @@ module.exports = {
       teacher.birth = date(teacher.birth).iso
       
 
-      return res.render("teachers/edit", {teacher})
+      return res.render("teachers/edit", {
+        teacher,
+        options: {
+          high_school: "Ensino Médio Completo",
+          higher_education: "Ensino Superior Completo",
+          master_degree: "Mestrado",
+          doctorate_degree: "Doutorado"
+        }
+      })
     })
   },
 
@@ -83,10 +91,15 @@ module.exports = {
         return res.send("Please, fill all the gaps")
       }
     }
-    return
-  },
+    
+    Teacher.update(req.body, () => {
+      return res.redirect(`/teachers/${req.body.id}`)
+    })
+  }, 
 
   delete(req, res) {
-    return
+    Teacher.delete(req.body.id, () => {
+      return res.redirect(`/teachers`)
+    }) 
   }
 }
