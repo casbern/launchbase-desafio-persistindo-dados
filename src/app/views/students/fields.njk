@@ -35,5 +35,16 @@
     <div>Carga Horária Semanal</div>
     <input type="number" name="total_hours" value="{{ student.total_hours }}">
   </div>
+
+  <div class="item">
+    <div>Professor</div>
+    <select type="select" name="teacher">
+      {% for teacher in teacherOptions %}
+      <option value="{{ teacher.id }}" {% if student.instructor_id == teacher.id %} selected {% endif %}>{{ value }}
+      {{teacher.name}}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
   
   <button type="submit">Salvar</button>

@@ -21,17 +21,21 @@ module.exports = {
   },
 
   create(req, res) {
-    return res.render("students/create", {
-      options: {
-      "5EF": "5º ano do ensino fundamental",
-      "6EF": "6º ano do ensino fundamental",
-      "7EF": "7º ano do ensino fundamental",
-      "8EF": "8º ano do ensino fundamental",
-      "9EF": "9º ano do ensino fundamental",
-      "1EM": "1º ano do ensino médio",
-      "2EM": "2º ano do ensino médio",
-      "3EM": "3º ano do ensino médio"
-      }
+    Student.teachersSelectedOptions( (options) => {
+
+      return res.render("students/create", {
+        teacherOptions: options,
+        options: {
+        "5EF": "5º ano do ensino fundamental",
+        "6EF": "6º ano do ensino fundamental",
+        "7EF": "7º ano do ensino fundamental",
+        "8EF": "8º ano do ensino fundamental",
+        "9EF": "9º ano do ensino fundamental",
+        "1EM": "1º ano do ensino médio",
+        "2EM": "2º ano do ensino médio",
+        "3EM": "3º ano do ensino médio"
+        }
+      })
     })
   },
 
@@ -58,20 +62,23 @@ module.exports = {
       if(!student) return res.send("Student was not found!")
 
       student.birth = date(student.birth).iso
-      
 
-      return res.render("students/edit", {
-        student,
-        options: {
-        "5EF": "5º ano do ensino fundamental",
-        "6EF": "6º ano do ensino fundamental",
-        "7EF": "7º ano do ensino fundamental",
-        "8EF": "8º ano do ensino fundamental",
-        "9EF": "9º ano do ensino fundamental",
-        "1EM": "1º ano do ensino médio",
-        "2EM": "2º ano do ensino médio",
-        "3EM": "3º ano do ensino médio"
-        }
+      Student.teachersSelectedOptions( (options) => {
+        
+        return res.render("students/edit", {
+          student,
+          teacherOptions: options,
+          options: {
+          "5EF": "5º ano do ensino fundamental",
+          "6EF": "6º ano do ensino fundamental",
+          "7EF": "7º ano do ensino fundamental",
+          "8EF": "8º ano do ensino fundamental",
+          "9EF": "9º ano do ensino fundamental",
+          "1EM": "1º ano do ensino médio",
+          "2EM": "2º ano do ensino médio",
+          "3EM": "3º ano do ensino médio"
+          }
+        })
       })
     })
   },

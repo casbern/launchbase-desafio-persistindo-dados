@@ -1,12 +1,20 @@
-const { age, date, grade} = require('../lib/utils')
+const { age, date} = require('../lib/utils')
 const Teacher = require("../models/teacher")
-const Intl = require("intl")
 
 module.exports = {
   index(req, res) {
-    Teacher.all((teachers) => {
-      return res.render("teachers/index", {teachers})
-    })
+
+    const {filter} = req.query
+
+    if(filter) {
+      Teacher.findBy(filter, function(teachers) {
+        return res.render("teachers/index", { teachers, filter })
+      })
+    } else {
+      Teacher.all((teachers) => {
+        return res.render("teachers/index", {teachers})
+      })
+    }
   },
 
   create(req, res) {
