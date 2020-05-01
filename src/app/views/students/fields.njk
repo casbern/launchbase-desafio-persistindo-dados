@@ -40,7 +40,7 @@
     <div>Professor</div>
     <select type="select" name="teacher">
       {% for teacher in teacherOptions %}
-      <option value="{{ teacher.id }}" {% if student.instructor_id == teacher.id %} selected {% endif %}>{{ value }}
+      <option value="{{ teacher.id }}" {% if student.teacher_id == teacher.id %} selected {% endif %}>{{ value }}
       {{teacher.name}}
       </option>
       {% endfor %}
