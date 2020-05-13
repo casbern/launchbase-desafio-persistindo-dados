@@ -16,7 +16,7 @@ module.exports = {
       page,
       limit,
       offset,
-      callback(teacher) {
+      callback(teachers) {
         return res.render("teachers/index", { teachers, filter })
       }
     }
