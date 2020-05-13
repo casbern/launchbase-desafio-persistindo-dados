@@ -3,29 +3,40 @@
 {% block content %}
 
 <div class="card table-container">
-<a href="/students/create">Novo</a>
-  <table>
-  <thead>
-  <tr>
-  <th>Nome Completo</th>
-  <th>Email</th>
-  <th>Ano Escolar</th>
-  <th>Ação</th>
-  </tr>
-  </thead>
+  <div class="header">
+    <a class="button" href="/students/create">Novo</a>
 
-  <tbody>
-  {% for student in students %}
-  <tr>
-  <td><span style="background-image: url({{student.avatar_url}})"></span>{{ student.name }}</td>
-  <td>{{student.email}}</td>
-  <td>{{ options[student.school_year] }}</td>
-  <td><a href="/students/{{student.id}}">Ver</a></td>
-  </tr>
-  {% endfor %}
-  </tbody>
+    <form action="/students" method="GET">
+      <input type="text" name="filter" placeholder="Nome ou Email" value="{{filter}}">
+      <button type="submit">Filtrar</button>
+    </form>
+  </div>
+  <table> 
+    <thead>
+      <tr>
+        <th>Nome Completo</th>
+        <th>Email</th>
+        <th>Ano Escolar</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td><span style="background-image: url({{student.avatar_url}})"></span>{{ student.name }}</td>
+        <td>{{student.email}}</td>
+        <td>{{ options[student.school_year] }}</td>
+        <td><a href="/students/{{student.id}}">Ver</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
-  
+
+  <div class="pagination" data-page={{pagination.page}} data-total={{pagination.total}} data-filter={{filter}}>
+  </div>
+
+
 </div>
 
 {% endblock content %}

@@ -17,21 +17,17 @@ module.exports = {
       limit,
       offset,
       callback(teachers) {
-        return res.render("teachers/index", { teachers, filter })
+        const pagination = {
+          total: Math.ceil(teachers[0].total/limit),
+          page
+        }
+        return res.render("teachers/index", { 
+          teachers, 
+          filter, 
+          pagination })
       }
     }
-
     Teacher.paginate(params)
-
-    // if(filter) {
-    //   Teacher.findBy(filter, function(teachers) {
-    //     return res.render("teachers/index", { teachers, filter })
-    //   })
-    // } else {
-    //   Teacher.all((teachers) => {
-    //     return res.render("teachers/index", {teachers})
-    //   })
-    // }
   },
 
   create(req, res) {

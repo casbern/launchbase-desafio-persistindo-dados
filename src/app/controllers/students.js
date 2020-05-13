@@ -4,20 +4,40 @@ const Intl = require("intl")
 
 module.exports = {
   index(req, res) {
-    Student.all((students) => {
-      return res.render("students/index", {
-        students, 
-        options: {
-        "5EF": "5º ano do ensino fundamental",
-        "6EF": "6º ano do ensino fundamental",
-        "7EF": "7º ano do ensino fundamental",
-        "8EF": "8º ano do ensino fundamental",
-        "9EF": "9º ano do ensino fundamental",
-        "1EM": "1º ano do ensino médio",
-        "2EM": "2º ano do ensino médio",
-        "3EM": "3º ano do ensino médio"
-      } })
-    })
+    let {filter, page, limit} = req.query
+    
+    page = page || 1 //número da página
+    limit = limit || 2 //quantos teachers vai trazer
+
+    let offset = limit * (page - 1) //trará os elements a partir do valor resultante da expressão
+
+    const params = {
+      filter,
+      page,
+      limit,
+      offset,
+      callback(students) {
+        const pagination = {
+          total: Math.ceil(students[0].total/limit),
+          page
+        }
+        return res.render("students/index", { 
+          students, 
+          filter, 
+          pagination, 
+          options: {
+          "5EF": "5º ano do ensino fundamental",
+          "6EF": "6º ano do ensino fundamental",
+          "7EF": "7º ano do ensino fundamental",
+          "8EF": "8º ano do ensino fundamental",
+          "9EF": "9º ano do ensino fundamental",
+          "1EM": "1º ano do ensino médio",
+          "2EM": "2º ano do ensino médio",
+          "3EM": "3º ano do ensino médio"
+        }  })
+      }
+    }
+    Student.paginate(params)
   },
 
   create(req, res) {
