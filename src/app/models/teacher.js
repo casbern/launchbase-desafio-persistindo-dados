@@ -109,6 +109,7 @@ module.exports = {
       return callback()
     })
   },
+  
   paginate(params) {
     const { filter, limit, offset, callback } = params
 
